@@ -54,6 +54,7 @@
     .burger-menu {
         display: block;
         z-index: 1001;
+        margin-right: 10px;
     }
     
     /* Hero Section */
