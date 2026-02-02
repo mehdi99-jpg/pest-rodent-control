@@ -1,6 +1,4 @@
 // ===================================
-// HERO SLIDER FUNCTIONALITY - HORIZONTAL AUTO-SLIDE
-// ===================================
 
 let currentSlide = 0;
 let slideInterval;
@@ -8,7 +6,8 @@ const SLIDE_DURATION = 5000; // 5 seconds per slide
 
 // Initialize Hero Slider when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    initHeroSlider();
+    // Small delay to ensure AOS doesn't interfere
+    setTimeout(initHeroSlider, 100);
 });
 
 function initHeroSlider() {
@@ -17,8 +16,23 @@ function initHeroSlider() {
     
     if (slides.length === 0) return;
     
+    // Remove all AOS attributes from slides to prevent conflicts
+    slides.forEach(slide => {
+        const heroContent = slide.querySelector('.hero-content');
+        if (heroContent) {
+            const elements = heroContent.querySelectorAll('[data-aos]');
+            elements.forEach(el => {
+                el.removeAttribute('data-aos');
+                el.removeAttribute('data-aos-delay');
+            });
+        }
+    });
+    
     // Set first slide as active
     slides[0].classList.add('active');
+    if (dots.length > 0) {
+        dots[0].classList.add('active');
+    }
     
     // Start automatic sliding
     startAutoSlide();
@@ -33,8 +47,10 @@ function initHeroSlider() {
     
     // Pause slider on hover
     const sliderContainer = document.querySelector('.slider-container');
-    sliderContainer.addEventListener('mouseenter', pauseAutoSlide);
-    sliderContainer.addEventListener('mouseleave', startAutoSlide);
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', pauseAutoSlide);
+        sliderContainer.addEventListener('mouseleave', startAutoSlide);
+    }
     
     // Keyboard navigation
     document.addEventListener('keydown', handleKeyboardNavigation);
@@ -63,7 +79,9 @@ function goToSlide(slideIndex) {
     
     // Update dots
     dots.forEach(dot => dot.classList.remove('active'));
-    dots[currentSlide].classList.add('active');
+    if (dots[currentSlide]) {
+        dots[currentSlide].classList.add('active');
+    }
 }
 
 function nextSlide() {
@@ -79,6 +97,7 @@ function previousSlide() {
 }
 
 function startAutoSlide() {
+    clearInterval(slideInterval); // Clear any existing interval
     slideInterval = setInterval(nextSlide, SLIDE_DURATION);
 }
 
@@ -478,3 +497,15 @@ window.addEventListener('scroll', function() {
 // ===================================
 console.log('%c🛡️ Home Shield - Pest Control Services', 'color: #0f3460; font-size: 20px; font-weight: bold;');
 console.log('%cWebsite developed with modern web technologies', 'color: #666; font-size: 12px;');
+
+
+
+
+
+
+
+
+
+
+
+
