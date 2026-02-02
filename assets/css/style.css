@@ -1,5 +1,5 @@
 /* ===================================
-   HERO SLIDER SECTION - CSS ONLY
+   HERO SLIDER SECTION - HORIZONTAL SLIDE
    =================================== */
 
 .hero-slider {
@@ -22,8 +22,8 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    transform: translateY(100%);
-    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.8s ease;
+    transform: translateX(100%); /* Start from right */
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.6s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,12 +34,12 @@
 
 .hero-slide.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0); /* Move to center */
     z-index: 2;
 }
 
 .hero-slide.prev {
-    transform: translateY(-100%);
+    transform: translateX(-100%); /* Exit to left */
     opacity: 0;
     z-index: 1;
 }
@@ -76,7 +76,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(5, 77, 36, 0.7), rgba(211, 47, 47, 0.6));
+    background: linear-gradient(135deg, 
+        rgba(15, 52, 96, 0.85), 
+        rgba(32, 78, 120, 0.75));
     z-index: 1;
 }
 
@@ -163,11 +165,12 @@
     
     .hero-buttons {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
     }
     
     .hero-buttons .btn {
         width: 100%;
+        max-width: 300px;
         text-align: center;
     }
     
@@ -195,29 +198,38 @@
     }
 }
 
-
-
-
-
-
-
-
-
 /* ===================================
-   CSS VARIABLES & RESET
+   CSS VARIABLES & RESET - MODERN COLORS
    =================================== */
 :root {
-    --primary: #054d24;      /* Dark Green */
-    --primary-light: #0a7a38;
-    --accent: #d32f2f;       /* Red */
-    --accent-hover: #b71c1c;
-    --light: #f9f9f9;
-    --light-gray: #f4f4f4;
+    /* Primary Colors - Modern Blue/Teal Palette */
+    --primary: #0f3460;          /* Deep Navy Blue */
+    --primary-light: #16213e;    /* Slightly lighter navy */
+    --primary-dark: #0a2647;     /* Darker navy */
+    
+    /* Accent Colors - Vibrant Coral/Orange */
+    --accent: #e94560;           /* Vibrant Coral Red */
+    --accent-hover: #d63447;     /* Darker coral on hover */
+    --accent-light: #ff6b81;     /* Light coral */
+    
+    /* Secondary Accent - Teal */
+    --secondary: #2ec4b6;        /* Modern Teal */
+    --secondary-light: #45c5b8;  /* Light teal */
+    
+    /* Neutral Colors */
+    --light: #f8f9fa;
+    --light-gray: #e9ecef;
     --dark: #1a1a1a;
-    --dark-gray: #333333;
+    --dark-gray: #495057;
     --white: #ffffff;
+    
+    /* Shadows */
     --shadow: rgba(0, 0, 0, 0.1);
     --shadow-hover: rgba(0, 0, 0, 0.2);
+    --shadow-primary: rgba(15, 52, 96, 0.2);
+    --shadow-accent: rgba(233, 69, 96, 0.3);
+    
+    /* Transitions */
     --transition: all 0.3s ease;
 }
 
@@ -285,7 +297,7 @@ body {
 .btn-primary:hover {
     background: var(--accent-hover);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(211, 47, 47, 0.3);
+    box-shadow: 0 10px 25px var(--shadow-accent);
 }
 
 .btn-secondary {
@@ -320,7 +332,7 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 0; /* Removed padding for a sleeker look */
+    padding: 0;
     transition: var(--transition);
     background: transparent;
 }
@@ -329,7 +341,7 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 0; /* Reduced padding for a sleeker look */
+    padding: 1rem 2rem;
 }
 
 header.scrolled {
@@ -338,7 +350,7 @@ header.scrolled {
 }
 
 header.scrolled .container {
-    padding: 0.5rem 0; /* Keep it consistent or reduce further */
+    padding: 0.5rem 2rem;
 }
 
 .logo img {
@@ -398,7 +410,7 @@ header.scrolled .nav-menu a {
 
 .btn-quote:hover {
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+    box-shadow: 0 5px 15px var(--shadow-accent);
 }
 
 .burger-menu {
@@ -407,70 +419,11 @@ header.scrolled .nav-menu a {
     color: var(--white);
     cursor: pointer;
     transition: var(--transition);
+    z-index: 1001;
 }
 
 header.scrolled .burger-menu {
-    color: var(--dark);
-    
-}
-
-/* ===================================
-   HERO SECTION
-   =================================== */
-.hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--white);
-    padding: 0 2rem;
-    background: linear-gradient(135deg, rgba(5, 77, 36, 0.7), rgba(211, 47, 47, 0.6)),
-                url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600') center/cover;
-    background-attachment: fixed;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.hero p {
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-    line-height: 1.8;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    color: var(--primary);
 }
 
 /* ===================================
@@ -506,7 +459,7 @@ header.scrolled .burger-menu {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     opacity: 0;
     transition: var(--transition);
     z-index: 0;
@@ -514,7 +467,7 @@ header.scrolled .burger-menu {
 
 .card:hover {
     transform: translateY(-15px);
-    border-bottom: 5px solid var(--primary);
+    border-bottom: 5px solid var(--accent);
     box-shadow: 0 15px 40px var(--shadow-hover);
 }
 
@@ -528,7 +481,7 @@ header.scrolled .burger-menu {
     width: 80px;
     height: 80px;
     margin: 0 auto 1.5rem;
-    background: linear-gradient(135deg, var(--accent), #ff6b6b);
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -578,7 +531,7 @@ header.scrolled .burger-menu {
 }
 
 .service-features i {
-    color: var(--primary);
+    color: var(--secondary);
     font-size: 0.9rem;
 }
 
@@ -639,12 +592,32 @@ header.scrolled .burger-menu {
 }
 
 /* ===================================
-   CONTACT SECTION
+   CONTACT SECTION - MODERN DESIGN
    =================================== */
 .contact {
     padding: 6rem 0;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(46, 196, 182, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(233, 69, 96, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.contact .container {
+    position: relative;
+    z-index: 1;
 }
 
 .contact .section-title,
@@ -692,7 +665,7 @@ header.scrolled .burger-menu {
 .form-group textarea:focus {
     outline: none;
     background: var(--white);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(46, 196, 182, 0.3);
 }
 
 .form-group textarea {
@@ -715,11 +688,17 @@ header.scrolled .burger-menu {
     backdrop-filter: blur(10px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition);
+}
+
+.info-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
 }
 
 .info-item i {
     font-size: 1.8rem;
-    color: var(--accent);
+    color: var(--secondary);
     margin-top: 0.3rem;
 }
 
@@ -870,3 +849,15 @@ header.scrolled .burger-menu {
         box-shadow: 0 5px 30px rgba(37, 211, 102, 0.8);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

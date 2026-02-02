@@ -1,6 +1,5 @@
-
 // ===================================
-// HERO SLIDER FUNCTIONALITY - JS ONLY
+// HERO SLIDER FUNCTIONALITY - HORIZONTAL AUTO-SLIDE
 // ===================================
 
 let currentSlide = 0;
@@ -54,7 +53,7 @@ function goToSlide(slideIndex) {
     // Remove prev class after animation
     setTimeout(() => {
         slides[currentSlide].classList.remove('prev');
-    }, 1200);
+    }, 1000);
     
     // Update current slide index
     currentSlide = slideIndex;
@@ -110,9 +109,6 @@ function handleKeyboardNavigation(e) {
     }
 }
 
-
-
-
 // ===================================
 // ANIMATION INITIALIZATION
 // ===================================
@@ -140,14 +136,15 @@ window.addEventListener('scroll', function() {
 });
 
 // ===================================
-// MOBILE MENU TOGGLE
+// MOBILE MENU TOGGLE - FIXED VERSION
 // ===================================
 const burger = document.getElementById('burger');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-menu a');
 
 // Toggle menu on burger click
-burger.addEventListener('click', function() {
+burger.addEventListener('click', function(e) {
+    e.stopPropagation();
     navMenu.classList.toggle('active');
     
     // Animate burger icon
@@ -305,9 +302,9 @@ const emailField = document.getElementById('email');
 // Add visual feedback for valid/invalid fields
 function addValidationFeedback(field, isValid) {
     if (isValid) {
-        field.style.borderColor = '#28a745';
+        field.style.borderColor = '#2ec4b6';
     } else {
-        field.style.borderColor = '#dc3545';
+        field.style.borderColor = '#e94560';
     }
 }
 
@@ -378,7 +375,7 @@ function createScrollToTopButton() {
         right: 30px;
         width: 50px;
         height: 50px;
-        background: var(--primary);
+        background: linear-gradient(135deg, #0f3460, #16213e);
         color: white;
         border: none;
         border-radius: 50%;
@@ -387,7 +384,7 @@ function createScrollToTopButton() {
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 5px 20px rgba(15, 52, 96, 0.3);
         transition: all 0.3s ease;
         z-index: 998;
     `;
@@ -414,10 +411,12 @@ function createScrollToTopButton() {
     // Hover effect
     scrollToTopButton.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-5px)';
+        this.style.background = 'linear-gradient(135deg, #e94560, #d63447)';
     });
     
     scrollToTopButton.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0)';
+        this.style.background = 'linear-gradient(135deg, #0f3460, #16213e)';
     });
 }
 
@@ -477,5 +476,5 @@ window.addEventListener('scroll', function() {
 // ===================================
 // CONSOLE MESSAGE (OPTIONAL)
 // ===================================
-console.log('%c🛡️ Home Shield - Pest Control Services', 'color: #054d24; font-size: 20px; font-weight: bold;');
+console.log('%c🛡️ Home Shield - Pest Control Services', 'color: #0f3460; font-size: 20px; font-weight: bold;');
 console.log('%cWebsite developed with modern web technologies', 'color: #666; font-size: 12px;');
